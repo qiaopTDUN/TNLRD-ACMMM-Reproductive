@@ -32,13 +32,9 @@ cof_beta  = eye(filtN,filtN);
 theta     = [10 5 ones(1,run_stage-2)];
 p         = [log(1) log(0.1)*ones(1,run_stage-1)];
 
-nlcoef    = zeros(fnlsz-1,filtN);
+nlcoef    = zeros(fnlsz,filtN);
 for i=1:filtN
-    k     = mod(i,fnlsz-1);
-    if k==0
-        k = fnlsz-1;
-    end
-    nlcoef(k,i) = 1;
+    nlcoef(1,i) = 1;
 end
 
 x0 = zeros(length(cof_beta(:)) + 1 + filtN*mfs.NumW + length(nlcoef(:)), run_stage);
