@@ -32,7 +32,7 @@ p         = exp(part2);
 part3     = cof(filtN*m+2:filtN*m+1+NumW*filtN);
 weights   = reshape(part3,NumW,filtN);
 part4     = cof(filtN*m+1+NumW*filtN+1:end);
-nlweights = reshape(part4,(fnlsz-1),filtN);
+nlweights = reshape(part4,fnlsz,filtN);
 
 K         = cell(filtN,1);
 f_norms   = zeros(filtN,1);
@@ -133,7 +133,7 @@ parfor samp = 1:R
         p2                = repmat(t(:).*N2kx(:),1,fnlsz).*kx1(ane)';
  
         gnlk              = - (diag(we*p1) + diag(we*p2));
-        grad_ln_nlws(:,i) = (eye(fnlsz-1) - nlweights(:,i)*nlweights(:,i)'/nlf_norms(i)^2)/nlf_norms(i)*nbasis'*gnlk(:);
+        grad_ln_nlws(:,i) = (eye(fnlsz) - nlweights(:,i)*nlweights(:,i)'/nlf_norms(i)^2)/nlf_norms(i)*nbasis'*gnlk(:);
     end
     grad_loss_beta        = grad_loss_beta + grad_ln_beta;
     grad_loss_weights     = grad_loss_weights + grad_ln_ws;
