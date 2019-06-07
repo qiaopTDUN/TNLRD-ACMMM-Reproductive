@@ -26,7 +26,7 @@ r              = sqrt(size(clean,1)) + (fsz + 1)*2;
 c              = r;
 
 trained_model  = cell(stage,1);
-len_cof        = (filtN)^2 + 1 + NumW*filtN + (fnlsz-1)*filtN;
+len_cof        = (filtN)^2 + 1 + NumW*filtN + fnlsz*filtN;
 vcof           = reshape(vcof,len_cof,stage);
 
 %% intialize models parameters
@@ -39,7 +39,7 @@ for s = 1:stage
     part3     = cof(filtN*m+2:filtN*m+1+NumW*filtN);
     weights   = reshape(part3,NumW,filtN);
     part4     = cof(filtN*m+1+NumW*filtN+1:end);
-    nlweights = reshape(part4,(fnlsz-1),filtN);
+    nlweights = reshape(part4,fnlsz,filtN);
     
     K         = cell(filtN,1);
     f_norms   = zeros(filtN,1);
