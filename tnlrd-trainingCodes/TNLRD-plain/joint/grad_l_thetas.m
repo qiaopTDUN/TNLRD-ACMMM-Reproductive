@@ -34,7 +34,7 @@ grad_loss_nlweights = 0;
 parfor samp = 1:R
     grad_ln_beta         = zeros(m,filtN);
     grad_ln_ws           = zeros(NumW,filtN);
-    grad_ln_nlws         = zeros((fnlsz-1),filtN);
+    grad_ln_nlws         = zeros(fnlsz,filtN);
     x                    = reshape(input(:,samp),r,c);
     xl                   = padarray(x, [pd,pd], 'both', 'symmetric');
     v                    = reshape(grad_l_u(:,samp),r,c);
@@ -73,7 +73,7 @@ parfor samp = 1:R
         p2                = repmat(t(:).*N2kx(:),1,fnlsz).*kx1(ane)';
  
         gnlk              = - (diag(we*p1) + diag(we*p2));
-        grad_ln_nlws(:,i) = (eye(fnlsz-1) - nlweights(:,i)*nlweights(:,i)'/nlf_norms(i)^2)/nlf_norms(i)*nbasis'*gnlk(:);
+        grad_ln_nlws(:,i) = (eye(fnlsz) - nlweights(:,i)*nlweights(:,i)'/nlf_norms(i)^2)/nlf_norms(i)*nbasis'*gnlk(:);
     end
     grad_loss_beta        = grad_loss_beta + grad_ln_beta;
     grad_loss_weights     = grad_loss_weights + grad_ln_ws;
